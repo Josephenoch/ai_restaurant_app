@@ -1,11 +1,9 @@
-import { StyleSheet, Pressable } from "react-native";
-
-import ParallaxScrollView from "@/components/ParallaxScrollView";
-import { ThemedText } from "@/components/ThemedText";
-import { ThemedView } from "@/components/ThemedView";
-import { CameraView, useCameraPermissions } from "expo-camera";
 import { useEffect } from "react";
+import { StyleSheet, Pressable } from "react-native";
+import { ThemedText, ThemedView } from "@/components/";
 import { router, useRootNavigationState } from "expo-router";
+import { CameraView, useCameraPermissions } from "expo-camera";
+import ParallaxScrollView from "@/components/ParallaxScrollView";
 
 export default function HomeScreen() {
   const [permission, requestPermission] = useCameraPermissions()

@@ -2,7 +2,7 @@ import type { PropsWithChildren, ReactElement } from 'react';
 import { StyleSheet, useColorScheme } from 'react-native';
 
 
-import { ThemedView } from '@/components/ThemedView';
+import {ThemedView} from '@/components';
 
 
 export default function ParallaxScrollView({
