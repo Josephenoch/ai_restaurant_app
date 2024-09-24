@@ -20,7 +20,7 @@ const cart = () => {
         <ThemedView>
         <FlatList
             data={cart.cartItems}
-            renderItem={({item, index})=> <CartItem idx={index} cartItem={item}/>}
+            renderItem={({item, index})=> <CartItem cartItem={item}/>}
         />
 
         </ThemedView>
