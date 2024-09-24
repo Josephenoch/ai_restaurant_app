@@ -4,6 +4,7 @@ import menuReducer from "./MenuSlice"
 import { persistReducer } from "redux-persist"
 import AsyncStorage from "@react-native-async-storage/async-storage"
 import { configureStore, combineReducers, AnyAction } from "@reduxjs/toolkit"
+import orderReducer from "./OrderSlice"
 
 const persistConfig = {
   key: "root",
@@ -13,6 +14,7 @@ const persistConfig = {
 export const appReducer = combineReducers({
   user: userReducer,
   menu: menuReducer,
+  order: orderReducer
 })
 
 const rootReducer = (state: ReturnType<typeof appReducer> | undefined, action: AnyAction) => {
