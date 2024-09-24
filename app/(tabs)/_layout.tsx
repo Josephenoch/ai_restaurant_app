@@ -32,7 +32,13 @@ export default function TabLayout() {
       options={{
         title: "MenuItem",
       }}
+      />
 
+    <Stack.Screen
+      name="cart"
+      options={{
+        title: "Cart",
+      }}
       />
     </Stack>
   );

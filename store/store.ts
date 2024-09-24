@@ -31,7 +31,7 @@ const persistedReducer = persistReducer(persistConfig, rootReducer)
 
 export const store = configureStore({
   reducer: persistedReducer,
-  middleware: (getDefaultMiddleware) => new Tuple(thunk)
+  middleware: () => new Tuple(thunk)
    
 })
 

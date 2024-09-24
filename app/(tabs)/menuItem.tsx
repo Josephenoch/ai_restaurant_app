@@ -2,7 +2,7 @@ import { FlatList, Pressable, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import ParallaxScrollView from '@/components/ParallaxScrollView'
 import { ThemedText, ThemedView } from '@/components'
-import { Link, useLocalSearchParams, useRouter } from 'expo-router'
+import { Link, useLocalSearchParams, router } from 'expo-router'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '@/store/store'
 import AntDesign from '@expo/vector-icons/AntDesign';
@@ -10,7 +10,6 @@ import { addItemToCart, removeItemFromCart } from '@/store/CartSlice'
 import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
 import Ionicons from '@expo/vector-icons/Ionicons';
 const MenuItem = () => {
-  const router = useRouter()
   const dispatch = useDispatch()
   const params = useLocalSearchParams<{restaurantIdentifier: string, id: string}>();
   const menuItem = useSelector((state:RootState) => state.menu.restaurants
@@ -71,9 +70,11 @@ const MenuItem = () => {
                     <AntDesign onPress={handleAddToCart} name="pluscircleo" size={16} color="#DA3365" />
                 </ThemedView>
             </ThemedView>
-            <Pressable style={styles.button}>
-                <ThemedText style={{color:"white", fontWeight: "bold"}}>Go to cart</ThemedText>
-            </Pressable>
+            <Link href="/cart" asChild>
+                <Pressable style={styles.button}>
+                    <ThemedText style={{color:"white", fontWeight: "bold"}}>Go to cart</ThemedText>
+                </Pressable>
+            </Link>
         </ThemedView>
     </>
 

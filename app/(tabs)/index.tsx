@@ -21,7 +21,6 @@ export default function HomeScreen() {
         }
       })
     }catch(err){
-      console.log(err)
     }
 
   }
@@ -30,9 +29,13 @@ export default function HomeScreen() {
     if(!permission?.granted){
       requestPermission()
     }
-    if(rootNavigationState?.key){
-      handleQRCodeScanned("https://ai-restaurant.onrender.com/menu/kenny-ai")
-    }
+    else{
+      // this is to enable testing with a simulator
+      // if its in dev mode and navigation is ready, simulate scanning a QR code
+     if(__DEV__ && rootNavigationState?.key){
+        handleQRCodeScanned("https://ai-restaurant.onrender.com/menu/kenny-ai")
+      }
+  }
  
   },[permission?.granted, rootNavigationState?.key])
 

@@ -24,7 +24,6 @@ const Menu = () => {
         menuItems: data
       }))
     }catch(err:any){
-      console.log(err.response.data)
     }
 
   }
