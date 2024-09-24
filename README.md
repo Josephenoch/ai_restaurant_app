@@ -48,5 +48,11 @@ This app requires a development build because it uses native dependencies.
 
 After starting the project, the system will automatically detect if you're running it on a simulator or live device. If you're running on a simulator, it will simulate the QR Code scanning process and proceed. If you're not, please scan this QR Code:
 
-![restaurant qr code](https://github.com/[username]/[reponame]/blob/[branch]/image.jpg?raw=true)
+![restaurant qr code](https://i.ibb.co/7bpF4vy/kenny-ai-qr-code.png)
+
+Also, creatw a .env file and add this to the url
+
+```bash
+EXPO_PUBLIC_API_URL = https://ai-restaurant.onrender.com/
+```
 
