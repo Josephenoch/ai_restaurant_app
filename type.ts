@@ -20,3 +20,14 @@ export type OrderType = {
     totalPrice: number;
     restaurantId: string
 }
+
+export type UserType = {
+    id: string;
+    email: string;
+    createdAt: Date;
+    updatedAt: Date;
+    fullName: string;
+    password: string;
+    phoneNumber: string;
+    
+}
