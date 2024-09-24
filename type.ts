@@ -10,7 +10,7 @@ export type MenuItemType = {
     price: number;
     calories: number;
     description: string;
-    ingredients: string;
+    ingredients: string[];
     restaurantId: string;
 }
 

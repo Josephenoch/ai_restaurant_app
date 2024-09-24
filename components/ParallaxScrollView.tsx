@@ -1,5 +1,5 @@
-import type { PropsWithChildren, ReactElement } from 'react';
-import { StyleSheet, useColorScheme } from 'react-native';
+import type { PropsWithChildren } from 'react';
+import { StyleSheet } from 'react-native';
 
 
 import {ThemedView} from '@/components';
@@ -19,7 +19,8 @@ export default function ParallaxScrollView({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 20
+    marginTop: 20,
+    backgroundColor: "#F9F9F9",
   },
   header: {
     height: 250,
@@ -30,5 +31,6 @@ const styles = StyleSheet.create({
     padding: 32,
     gap: 16,
     overflow: 'hidden',
+    backgroundColor: "#F9F9F9",
   },
 });

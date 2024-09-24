@@ -1,34 +1,39 @@
-import { Alert, StyleSheet, Text, View } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import {  StyleSheet} from 'react-native'
+import React, { useEffect } from 'react'
 import { useLocalSearchParams } from 'expo-router';
-import isValidURL from '@/scripts/validate-url';
 import { fetchRestaurantMenu } from '@/requests/menu';
-import { MenuItem, ParallaxScrollView, ThemedText, ThemedView } from '@/components';
-import { MenuItemType } from '@/type';
+import { ThemedText, ThemedView } from '@/components';
+import ParallaxScrollView from '@/components/ParallaxScrollView';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '@/store/store';
+import { addRestaurantMenu } from '@/store/MenuSlice';
+import MenuItem from '@/components/MenuItem';
 
 
 
 const Menu = () => {
-  const [menuItems, setMenuItems] = useState<MenuItemType[]>([])
-  const item = useLocalSearchParams<{restaurantAPIURL: string}>();
+  const dispatch = useDispatch();
+  const params = useLocalSearchParams<{identifier: string}>();
+  const restaurant = useSelector((state: RootState) => state.menu.restaurants.find(item=> item.id === params.identifier));
 
-  const handleFetchMenu = async  (url: string) => {
+  const handleFetchMenu = async  (restaurantIdentifier: string) => {
     try{
-      const restaurantIdentifier = isValidURL(url)
       const {data: {data}} = await fetchRestaurantMenu(restaurantIdentifier)
-      console.log(data)
-      setMenuItems(data)
-    }catch(err){
-      console.log(err)
+      dispatch(addRestaurantMenu({
+        id: restaurantIdentifier,
+        menuItems: data
+      }))
+    }catch(err:any){
+      console.log(err.response.data)
     }
 
   }
 
   useEffect(()=>{
-    if(item.restaurantAPIURL){
-      handleFetchMenu(item.restaurantAPIURL)
+    if(params.identifier){
+      handleFetchMenu(params.identifier)
     }
-  },[item.restaurantAPIURL])
+  },[params.identifier])
 
  
   
@@ -41,10 +46,11 @@ const Menu = () => {
         <ThemedText style={styles.scanText}>scan again</ThemedText>
       </ThemedView>
       <ThemedView style={styles.menuItemsContainer}>
-        {menuItems.map((item, index) => (
-          <MenuItem idx={index} description={item.description} name={item.name} price={item.price}/>
+        {restaurant?.menuItems.map((item, index) => (
+          <MenuItem key={item.id} restaurantIdentifier={restaurant.id} idx={index} menuItem={item}/>
         ))}
       </ThemedView>
+      
     </ParallaxScrollView>
   )
 }

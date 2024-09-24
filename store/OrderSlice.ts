@@ -10,7 +10,7 @@ const initialState: OrderState = {
 }
 
 export const orderSlice = createSlice({
-	name: 'user',
+	name: 'order',
 	initialState,
 	reducers: {
         addOrders: (state, action: PayloadAction<{order: OrderType}>) => {

@@ -1,31 +1,47 @@
 import React, { FC } from "react"
 import { Pressable, StyleSheet, View, } from "react-native"
-import {ThemedText, ThemedView} from "@/components"
+import {ThemedText, ThemedView} from "."
+import { MenuItemType } from "@/type"
+import { useDispatch } from "react-redux"
+import { addItemToCart } from "@/store/CartSlice"
+import { Link } from "expo-router"
 
 type PropsType = {
     idx: number
-    name: string,
-    price: number,
-    description: string,
+    menuItem: MenuItemType
+    restaurantIdentifier: string,
 }
 
 const MenuItem:FC<PropsType> = ({
     idx,
-    name,
-    price,
-    description
+    menuItem,
+    restaurantIdentifier
 }) => {
-  return (
-    <ThemedView style={{...styles.container, marginLeft: idx % 2 === 1 ? "10%" : "0%"}}>
-        <ThemedText style={{fontWeight: 600}}>{name}</ThemedText>
-        <ThemedText style={{fontWeight: 200, fontSize: 12}}>{description}</ThemedText>
-        <View style={styles.priceContainer}>
-            <ThemedText style={{fontSize: 12}}>₦{price.toLocaleString()}</ThemedText>
-            <Pressable style={styles.addButton}>
-                <ThemedText>+</ThemedText>
-            </Pressable>
-        </View>
-    </ThemedView>
+    const dispatch = useDispatch()
+    const handlePress = () => {
+        dispatch(addItemToCart({menuItem}))
+    }
+    return (
+    <Link href={{
+        pathname: "/menuItem",
+        params: {
+            id: menuItem.id,
+            restaurantIdentifier
+        }
+        }}
+        asChild
+    >
+        <Pressable style={{...styles.container, marginLeft: idx % 2 === 1 ? "10%" : "0%"}}>
+            <ThemedText style={{fontWeight: 600}}>{menuItem.name}</ThemedText>
+            <ThemedText style={{fontWeight: 200, fontSize: 12}}>{menuItem.description}</ThemedText>
+            <View style={styles.priceContainer}>
+                <ThemedText style={{fontSize: 12}}>₦{menuItem.price.toLocaleString()}</ThemedText>
+                <Pressable onPress={handlePress} style={styles.addButton}>
+                    <ThemedText>+</ThemedText>
+                </Pressable>
+            </View>
+        </Pressable>
+    </Link>
   )
 }
 

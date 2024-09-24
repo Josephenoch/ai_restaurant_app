@@ -1,10 +1,11 @@
-import thunk from "redux-thunk"
+import {thunk} from "redux-thunk"
 import userReducer from "./UserSlice"
 import menuReducer from "./MenuSlice"
 import { persistReducer } from "redux-persist"
 import AsyncStorage from "@react-native-async-storage/async-storage"
-import { configureStore, combineReducers, AnyAction } from "@reduxjs/toolkit"
+import { configureStore, combineReducers, AnyAction, Tuple } from "@reduxjs/toolkit"
 import orderReducer from "./OrderSlice"
+import cartReducer from "./CartSlice"
 
 const persistConfig = {
   key: "root",
@@ -12,6 +13,7 @@ const persistConfig = {
 }
 
 export const appReducer = combineReducers({
+  cart: cartReducer,
   user: userReducer,
   menu: menuReducer,
   order: orderReducer
@@ -29,7 +31,8 @@ const persistedReducer = persistReducer(persistConfig, rootReducer)
 
 export const store = configureStore({
   reducer: persistedReducer,
-  middleware: [thunk]
+  middleware: (getDefaultMiddleware) => new Tuple(thunk)
+   
 })
 
 export type RootState = ReturnType<typeof store.getState>

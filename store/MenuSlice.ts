@@ -2,34 +2,34 @@ import { MenuItemType } from "@/type";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export type MenuState = {
-    restuarants: RestaurantWithMenu[]
+    restaurants: RestaurantWithMenu[]
 }
 
 export type RestaurantWithMenu = {
-    name: string
+    id: string
     menuItems: MenuItemType[]
 }
 
 const initialState: MenuState = {
-    restuarants: []
+    restaurants: []
 }
 
 export const menuSlice = createSlice({
-	name: 'user',
+	name: 'menu',
 	initialState,
 	reducers: {
-        addRestaurant: (state, action: PayloadAction<RestaurantWithMenu>) => {
-            const restuarantExistsIdx = state.restuarants.findIndex(item=> item.name === action.payload.name)
+        addRestaurantMenu: (state, action: PayloadAction<RestaurantWithMenu>) => {
+            const restuarantExistsIdx = state.restaurants.findIndex(item=> item.id === action.payload.id)
             if(restuarantExistsIdx < 0){
-                state.restuarants.push(action.payload)
+                state.restaurants.push(action.payload)
                 return
             }
-            state.restuarants[restuarantExistsIdx] = action.payload
+            state.restaurants[restuarantExistsIdx] = action.payload
         }
     }
 })
 
-export const { addRestaurant } = menuSlice.actions
+export const { addRestaurantMenu } = menuSlice.actions
 
 const menuReducer = menuSlice.reducer
 

@@ -23,8 +23,16 @@ export default function TabLayout() {
      <Stack.Screen
       name="menu"
       options={{
-        title: "menu"
+        title: "Menu"
       }}
+      />
+
+    <Stack.Screen
+      name="menuItem"
+      options={{
+        title: "MenuItem",
+      }}
+
       />
     </Stack>
   );

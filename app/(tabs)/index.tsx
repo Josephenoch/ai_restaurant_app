@@ -4,26 +4,37 @@ import { ThemedText, ThemedView } from "@/components/";
 import { router, useRootNavigationState } from "expo-router";
 import { CameraView, useCameraPermissions } from "expo-camera";
 import ParallaxScrollView from "@/components/ParallaxScrollView";
+import isValidURL from "@/scripts/validate-url";
 
 export default function HomeScreen() {
   const [permission, requestPermission] = useCameraPermissions()
   const rootNavigationState = useRootNavigationState();
 
+  const handleQRCodeScanned = (restaurantAPIURL: string) => {
+    try{
+
+      const identifier =  isValidURL(restaurantAPIURL)
+      router.push({
+        pathname: "/(tabs)/menu",
+        params: {
+          identifier
+        }
+      })
+    }catch(err){
+      console.log(err)
+    }
+
+  }
   
   useEffect(()=>{
     if(!permission?.granted){
       requestPermission()
     }
-    if(rootNavigationState.key){
-      router.push({
-        pathname: "/(tabs)/menu",
-        params: {
-          restaurantAPIURL: "https://ai-restaurant.onrender.com/menu/kenny-ai"
-        }
-      })
+    if(rootNavigationState?.key){
+      handleQRCodeScanned("https://ai-restaurant.onrender.com/menu/kenny-ai")
     }
  
-  },[permission?.granted, rootNavigationState.key])
+  },[permission?.granted, rootNavigationState?.key])
 
   if(!permission?.granted) return (
     <ParallaxScrollView>
@@ -39,14 +50,7 @@ export default function HomeScreen() {
     </ParallaxScrollView>
   )
 
-  const handleQRCodeScanned = (restaurantAPIURL: string) => {
-    router.push({
-      pathname: "/(tabs)/menu",
-      params: {
-        restaurantAPIURL
-      }
-    })
-  }
+ 
   return (
     <CameraView
       facing="back"
