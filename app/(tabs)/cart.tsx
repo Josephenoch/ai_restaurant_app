@@ -44,7 +44,7 @@ const cart = () => {
             </ThemedView>
             <Link href="/(tabs)/orderConfirmed" asChild>
                 <Pressable style={styles.button}>
-                    <ThemedText style={{color:"white", fontWeight: "bold"}}>Place Order</ThemedText>
+                    <ThemedText style={{color:"white", fontWeight: "bold"}}>Submit Order</ThemedText>
                 </Pressable>
             </Link>
         </ThemedView>

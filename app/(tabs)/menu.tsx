@@ -1,6 +1,6 @@
 import {  StyleSheet} from 'react-native'
 import React, { useEffect } from 'react'
-import { useLocalSearchParams } from 'expo-router';
+import { Link, useLocalSearchParams } from 'expo-router';
 import { fetchRestaurantMenu } from '@/requests/menu';
 import { ThemedText, ThemedView } from '@/components';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
@@ -42,7 +42,7 @@ const Menu = () => {
     <ParallaxScrollView>
       <ThemedView style={styles.headerText}>
         <ThemedText style={styles.welcomeText}>Welcome!</ThemedText>
-        <ThemedText style={styles.scanText}>scan again</ThemedText>
+        <Link href="/(tabs)"><ThemedText style={styles.scanText}>scan again</ThemedText></Link>
       </ThemedView>
       <ThemedView style={styles.menuItemsContainer}>
         {restaurant?.menuItems.map((item, index) => (
